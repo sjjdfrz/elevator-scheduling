@@ -186,10 +186,10 @@ class Window(QMainWindow):
         self.label1 = QLabel(self)
         self.label2 = QLabel(self)
 
-        self.pixmap0 = QPixmap('0.png')
-        self.pixmap1 = QPixmap('1.png')
-        self.pixmap2 = QPixmap('2.png')
-        self.pixmap3 = QPixmap('3.png')
+        self.pixmap0 = QPixmap('images/0.png')
+        self.pixmap1 = QPixmap('images/1.png')
+        self.pixmap2 = QPixmap('images/2.png')
+        self.pixmap3 = QPixmap('images/3.png')
 
         self.label0.setPixmap(self.pixmap0)
         self.label1.setPixmap(self.pixmap1)
