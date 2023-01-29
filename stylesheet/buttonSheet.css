@@ -1,7 +1,7 @@
 QWidget {
     background: rgb(248, 214, 165);
-    border-radius: 10px;
+    border-radius: 20px;
     font-family: "Ink Free";
-    font-size: 20px;
+    font-size: 40px;
     font-weight: bold;
 }
