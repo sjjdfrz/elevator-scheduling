@@ -2,7 +2,7 @@ from threading import Thread
 import time
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap, QIcon
 import sys
 
 
@@ -178,9 +178,10 @@ class Window(QMainWindow):
         super().__init__()
 
         self.acceptDrops()
-        self.setWindowTitle("elevator")
-
-        self.setGeometry(100, 50, 700, 640)
+        self.setWindowTitle("Elevator")
+        self.setWindowIcon(QIcon('images/icon.png'))
+        self.setFixedSize(1300, 640)
+        self.setStyleSheet("background-image: url(images/back.png);")
         self.label3 = QLabel(self)
         self.label0 = QLabel(self)
         self.label1 = QLabel(self)
@@ -196,62 +197,74 @@ class Window(QMainWindow):
         self.label2.setPixmap(self.pixmap2)
         self.label3.setPixmap(self.pixmap3)
 
-        self.label0.setGeometry(311, 599, self.pixmap0.width(), self.pixmap0.height())
-        self.label1.setGeometry(341, 599, self.pixmap1.width(), self.pixmap1.height())
-        self.label2.setGeometry(372, 599, self.pixmap2.width(), self.pixmap2.height())
-        self.label3.setGeometry(280, 0, self.pixmap3.width(), self.pixmap3.height())
+        self.label0.setGeometry(672, 600, self.pixmap0.width(), self.pixmap0.height())
+        self.label1.setGeometry(702, 600, self.pixmap1.width(), self.pixmap1.height())
+        self.label2.setGeometry(733, 600, self.pixmap2.width(), self.pixmap2.height())
+        self.label3.setGeometry(640, 0, self.pixmap3.width(), self.pixmap3.height())
 
         self.label4 = QLabel(self)
-        self.label4.setText('internal #1:')
-        self.label4.move(5, 20)
+        self.label4.setText(' Internal 1:')
+        self.label4.setGeometry(20, 20, 120, 40)
+        self.label4.setStyleSheet(open('stylesheet/labelSheet.css').read())
 
         self.label5 = QLabel(self)
-        self.label5.setText('internal #2:')
-        self.label5.move(5, 60)
+        self.label5.setText(' Internal 2:')
+        self.label5.setGeometry(20, 80, 120, 40)
+        self.label5.setStyleSheet(open('stylesheet/labelSheet.css').read())
 
         self.label6 = QLabel(self)
-        self.label6.setText('internal #3:')
-        self.label6.move(5, 100)
+        self.label6.setText(' Internal 3:')
+        self.label6.setGeometry(20, 140, 120, 40)
+        self.label6.setStyleSheet(open('stylesheet/labelSheet.css').read())
 
         self.label7 = QLabel(self)
-        self.label7.setText('external:')
-        self.label7.move(5, 140)
+        self.label7.setText(' External:')
+        self.label7.setGeometry(20, 200, 100, 40)
+        self.label7.setStyleSheet(open('stylesheet/labelSheet.css').read())
 
         self.line1 = QLineEdit(self)
-        self.line1.move(70, 20)
-        self.line1.resize(120, 32)
+        self.line1.move(140, 20)
+        self.line1.resize(50, 40)
+        self.line1.setStyleSheet(open('stylesheet/textboxSheet.css').read())
 
         self.line2 = QLineEdit(self)
-        self.line2.move(70, 60)
-        self.line2.resize(120, 32)
+        self.line2.move(140, 80)
+        self.line2.resize(50, 40)
+        self.line2.setStyleSheet(open('stylesheet/textboxSheet.css').read())
 
         self.line3 = QLineEdit(self)
-        self.line3.move(70, 100)
-        self.line3.resize(120, 32)
+        self.line3.move(140, 140)
+        self.line3.resize(50, 40)
+        self.line3.setStyleSheet(open('stylesheet/textboxSheet.css').read())
 
         self.line4 = QLineEdit(self)
-        self.line4.move(70, 140)
-        self.line4.resize(120, 32)
+        self.line4.move(120, 200)
+        self.line4.resize(70, 40)
+        self.line4.setStyleSheet(open('stylesheet/textboxSheet.css').read())
 
         pybutton1 = QPushButton('OK', self)
         pybutton1.clicked.connect(self.internal1_req)
-        pybutton1.resize(50, 32)
+        pybutton1.resize(50, 40)
         pybutton1.move(200, 20)
+        pybutton1.setStyleSheet(open('stylesheet/buttonSheet.css').read())
 
         pybutton2 = QPushButton('OK', self)
         pybutton2.clicked.connect(self.internal2_req)
-        pybutton2.resize(50, 32)
-        pybutton2.move(200, 60)
+        pybutton2.resize(50, 40)
+        pybutton2.move(200, 80)
+        pybutton2.setStyleSheet(open('stylesheet/buttonSheet.css').read())
 
         pybutton3 = QPushButton('OK', self)
         pybutton3.clicked.connect(self.internal3_req)
-        pybutton3.resize(50, 32)
-        pybutton3.move(200, 100)
+        pybutton3.resize(50, 40)
+        pybutton3.move(200, 140)
+        pybutton3.setStyleSheet(open('stylesheet/buttonSheet.css').read())
 
         pybutton4 = QPushButton('OK', self)
         pybutton4.clicked.connect(self.external_req)
-        pybutton4.resize(50, 32)
-        pybutton4.move(200, 140)
+        pybutton4.resize(50, 40)
+        pybutton4.move(200, 200)
+        pybutton4.setStyleSheet(open('stylesheet/buttonSheet.css').read())
 
         self.show()
 
@@ -268,25 +281,25 @@ class Window(QMainWindow):
         Window.requests.append(['e', int(self.line4.text())])
 
     def move_elevator(self, elevator, floor):
-        y = ((15 - floor) * 40) - 1
+        y = ((15 - floor) * 40)
         elevator_label = None
         x = None
 
         if elevator == 1:
             elevator_label = window.label0
-            x = 311
+            x = 672
         elif elevator == 2:
             elevator_label = window.label1
-            x = 341
+            x = 702
         elif elevator == 3:
             elevator_label = window.label2
-            x = 372
+            x = 733
 
         while elevator_label.y() != y:
             if elevator_label.y() < y:
-                elevator_label.move(x, elevator_label.y() + 10)
+                elevator_label.move(x, elevator_label.y() + 5)
             else:
-                elevator_label.move(x, elevator_label.y() - 10)
+                elevator_label.move(x, elevator_label.y() - 5)
             time.sleep(0.0001)
 
 

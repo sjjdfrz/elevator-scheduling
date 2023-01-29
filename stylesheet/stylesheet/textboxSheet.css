@@ -1,0 +1,8 @@
+QWidget  {
+background: rgb(249, 237, 220);
+border-top-right-radius: 10px;
+border-bottom-right-radius: 10px;
+font-family: "Ink Free";
+font-size: 20px;
+    font-weight: bold;
+}
