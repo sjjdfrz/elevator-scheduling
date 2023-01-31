@@ -1,9 +1,11 @@
+import threading
 from threading import Thread
 import time
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, QThread
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap, QIcon
 import sys
+import multiprocessing
 
 
 def start_req():
@@ -299,15 +301,15 @@ class Window(QMainWindow):
 
     def internal2_req(self):
         Window.requests.append(['i', 2, int(self.line2.text())])
-        self.line1.clear()
+        self.line2.clear()
 
     def internal3_req(self):
         Window.requests.append(['i', 3, int(self.line3.text())])
-        self.line1.clear()
+        self.line3.clear()
 
     def external_req(self):
         Window.requests.append(['e', int(self.line4.text())])
-        self.line1.clear()
+        self.line4.clear()
 
     def move_elevator(self, elevator, floor):
         y = ((15 - floor) * 40)
@@ -330,12 +332,12 @@ class Window(QMainWindow):
 
         while elevator_label.y() != y:
             if elevator_label.y() < y:
-                elevator_label.move(x, elevator_label.y() + 5)
-                # elevator_label.move(x, elevator_label.y() + 10)
+                elevator_label.move(x, elevator_label.y() + 40)
+                # elevator_label.move(x, elevator_label.y() + 80)
             else:
-                elevator_label.move(x, elevator_label.y() - 5)
-                # elevator_label.move(x, elevator_label.y() - 10)
-            time.sleep(0.0001)
+                elevator_label.move(x, elevator_label.y() - 40)
+                # elevator_label.move(x, elevator_label.y() - 80)
+            time.sleep(0.2)
 
         time.sleep(1)
 
