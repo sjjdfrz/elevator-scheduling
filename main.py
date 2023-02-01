@@ -1,11 +1,8 @@
-import threading
 from threading import Thread
 import time
-from PyQt5.QtCore import pyqtSlot, QThread
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QPixmap, QIcon
 import sys
-import multiprocessing
 
 
 def start_req():
@@ -166,7 +163,6 @@ class Elevator(Thread):
             if result.get(e) == x:
                 return e
 
-    @pyqtSlot()
     def run(self):
         while True:
             if self.requests:
@@ -296,19 +292,27 @@ class Window(QMainWindow):
         self.show()
 
     def internal1_req(self):
-        Window.requests.append(['i', 1, int(self.line1.text())])
+        if 0 <= int(self.line1.text()) <= 15:
+            Window.requests.append(['i', 1, int(self.line1.text())])
+
         self.line1.clear()
 
     def internal2_req(self):
-        Window.requests.append(['i', 2, int(self.line2.text())])
+        if 0 <= int(self.line2.text()) <= 15:
+            Window.requests.append(['i', 2, int(self.line2.text())])
+
         self.line2.clear()
 
     def internal3_req(self):
-        Window.requests.append(['i', 3, int(self.line3.text())])
+        if 0 <= int(self.line3.text()) <= 15:
+            Window.requests.append(['i', 3, int(self.line3.text())])
+
         self.line3.clear()
 
     def external_req(self):
-        Window.requests.append(['e', int(self.line4.text())])
+        if 0 <= int(self.line4.text()) <= 15:
+            Window.requests.append(['e', int(self.line4.text())])
+
         self.line4.clear()
 
     def move_elevator(self, elevator, floor):
