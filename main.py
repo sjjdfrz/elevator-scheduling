@@ -17,11 +17,11 @@ def start_req():
                 if req[0] == 'e':
 
                     if elevator1.current_floor == req[1]:
-                        print(f'We are at elevator {elevator1.name} and at floor {elevator1.current_floor}')
+                        print(f'We are in elevator {elevator1.name} and on floor {elevator1.current_floor}')
                     elif elevator2.current_floor == req[1]:
-                        print(f'We are at elevator {elevator2.name} and at floor {elevator2.current_floor}')
+                        print(f'We are in elevator {elevator2.name} and on floor {elevator2.current_floor}')
                     elif elevator3.current_floor == req[1]:
-                        print(f'We are at elevator {elevator3.name} and at floor {elevator3.current_floor}')
+                        print(f'We are in elevator {elevator3.name} and on floor {elevator3.current_floor}')
                     else:
                         Elevator.choose_elevator(elevator1, elevator2, elevator3, req[1]).requests.append(req[1])
 
@@ -31,19 +31,19 @@ def start_req():
                         if elevator1.current_floor != req[2]:
                             elevator1.requests.append(req[2])
                         else:
-                            print(f'We are at elevator {elevator1.name} and at floor {elevator1.current_floor}')
+                            print(f'We are in elevator {elevator1.name} and on floor {elevator1.current_floor}')
 
                     elif req[1] == 2:
                         if elevator2.current_floor != req[2]:
                             elevator2.requests.append(req[2])
                         else:
-                            print(f'We are at elevator {elevator2.name} and at floor {elevator2.current_floor}')
+                            print(f'We are in elevator {elevator2.name} and on floor {elevator2.current_floor}')
 
                     else:
                         if elevator3.current_floor != req[2]:
                             elevator3.requests.append(req[2])
                         else:
-                            print(f'We are at elevator {elevator3.name} and at floor {elevator3.current_floor}')
+                            print(f'We are in elevator {elevator3.name} and on floor {elevator3.current_floor}')
 
 
 class Elevator(Thread):
@@ -53,7 +53,7 @@ class Elevator(Thread):
         Thread.__init__(self)
         self.name = name
         self.current_floor = current_floor
-        self.direction = 'up' or 'down'
+        self.direction = 'up'
         self.requests = []
 
     def up_movement(self, up, up_temp):
@@ -61,7 +61,7 @@ class Elevator(Thread):
             self.current_floor = up[i]
             self.requests.remove(up[i])
             up_temp.remove(up[i])
-            print(f'We are at elevator {self.name} and at floor {self.current_floor}')
+            print(f'We are in elevator {self.name} and on floor {self.current_floor}')
             window.move_elevator(int(self.name), self.current_floor)
 
     def down_movement(self, down, down_temp):
@@ -69,7 +69,7 @@ class Elevator(Thread):
             self.current_floor = down[i]
             self.requests.remove(down[i])
             down_temp.remove(down[i])
-            print(f'We are at elevator {self.name} and at floor {self.current_floor}')
+            print(f'We are in elevator {self.name} and on floor {self.current_floor}')
             window.move_elevator(int(self.name), self.current_floor)
 
     def handle_request(self):
@@ -292,25 +292,25 @@ class Window(QMainWindow):
         self.show()
 
     def internal1_req(self):
-        if 0 <= int(self.line1.text()) <= 15:
+        if self.line1.text().isdigit() and 0 <= int(self.line1.text()) <= 15:
             Window.requests.append(['i', 1, int(self.line1.text())])
 
         self.line1.clear()
 
     def internal2_req(self):
-        if 0 <= int(self.line2.text()) <= 15:
+        if self.line2.text().isdigit() and 0 <= int(self.line2.text()) <= 15:
             Window.requests.append(['i', 2, int(self.line2.text())])
 
         self.line2.clear()
 
     def internal3_req(self):
-        if 0 <= int(self.line3.text()) <= 15:
+        if self.line3.text().isdigit() and 0 <= int(self.line3.text()) <= 15:
             Window.requests.append(['i', 3, int(self.line3.text())])
 
         self.line3.clear()
 
     def external_req(self):
-        if 0 <= int(self.line4.text()) <= 15:
+        if self.line4.text().isdigit() and 0 <= int(self.line4.text()) <= 15:
             Window.requests.append(['e', int(self.line4.text())])
 
         self.line4.clear()
